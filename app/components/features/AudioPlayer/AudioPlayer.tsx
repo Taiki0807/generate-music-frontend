@@ -144,9 +144,7 @@ export const AudioPlayer = ({
         />
       </div>
       <div className={style.duration}>
-        {duration &&
-          !isNaN(duration) &&
-          calculateTime(duration)}
+        {calculateTime(duration)}
       </div>
     </div>
   );
