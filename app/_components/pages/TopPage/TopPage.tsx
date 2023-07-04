@@ -1,9 +1,13 @@
+'use client';
 import Image from 'next/image';
 import { AudioPlayer } from '../../features';
 import { Button, Input } from '../../parts';
 import style from './TopPage.module.css';
+import { useTopPage } from './useTopPage';
 
 export const TopPage = (): JSX.Element => {
+  const { handleChange, handleSubmit, loading } =
+    useTopPage();
   return (
     <div className={style.toppage}>
       <Image
@@ -17,8 +21,14 @@ export const TopPage = (): JSX.Element => {
         <span data-text="Music">Music</span>
       </h1>
       <div className={style.top__item}>
-        <Input />
-        <Button color="success">generate</Button>
+        <Input onChange={handleChange} />
+        <Button
+          color="success"
+          onClick={handleSubmit}
+          loading={loading}
+        >
+          generate
+        </Button>
         <AudioPlayer
           music={
             'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
