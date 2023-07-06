@@ -1,10 +1,7 @@
 import style from './Input.module.css';
 
 interface Props {
-  onChange?: (
-    // eslint-disable-next-line no-unused-vars
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  onChange: (value: string) => void;
 }
 
 export const Input = ({ onChange }: Props): JSX.Element => {
@@ -14,7 +11,7 @@ export const Input = ({ onChange }: Props): JSX.Element => {
         type="text"
         placeholder="Write here..."
         name="text"
-        onChange={onChange}
+        onChange={(event) => onChange(event.target.value)}
         className={style.input}
       />
     </div>
