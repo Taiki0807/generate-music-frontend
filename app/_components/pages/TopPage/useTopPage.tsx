@@ -4,6 +4,7 @@ import { postFetcher } from '@/utils/httpClient';
 export const useTopPage = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [music, setMusic] = useState('');
   const handleChange = (value: string) => {
     setInput(value);
   };
@@ -21,7 +22,7 @@ export const useTopPage = () => {
             process.env.NEXT_PUBLIC_AUTH_PUBLIC_KEY,
         }
       );
-      console.log(data);
+      setMusic(data.result.audio);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -33,5 +34,6 @@ export const useTopPage = () => {
     handleChange,
     handleSubmit,
     loading,
+    music,
   };
 };

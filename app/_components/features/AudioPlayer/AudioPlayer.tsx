@@ -4,7 +4,7 @@ import { FaPlay, FaPause, FaForward } from 'react-icons/fa';
 import style from './AudioPlayer.module.css';
 
 interface Props {
-  music: string;
+  music?: string;
 }
 
 export const AudioPlayer = ({
@@ -16,7 +16,11 @@ export const AudioPlayer = ({
   const audioPlayer = useRef<HTMLAudioElement | null>(null);
   const progressBar = useRef<HTMLInputElement | null>(null);
   const animationRef = useRef<number | undefined>();
-
+  useEffect(() => {
+    if (audioPlayer.current && music) {
+      audioPlayer.current.src = music;
+    }
+  }, [music]);
   useEffect(() => {
     if (audioPlayer?.current && progressBar.current) {
       const seconds = Math.floor(
@@ -51,8 +55,15 @@ export const AudioPlayer = ({
       progressBar.current.value =
         audioPlayer.current.currentTime.toString();
       changePlayerCurrentTime();
-      animationRef.current =
-        requestAnimationFrame(whilePlaying);
+      if (
+        progressBar.current.value ===
+        progressBar.current.max
+      ) {
+        setIsPlaying(false);
+      } else {
+        animationRef.current =
+          requestAnimationFrame(whilePlaying);
+      }
     }
   };
   const changeRange = () => {
@@ -107,45 +118,84 @@ export const AudioPlayer = ({
 
   return (
     <div className={style.audioPlayer}>
-      <audio
-        ref={audioPlayer}
-        src={music}
-        preload="metadata"
-      ></audio>
-      <button
-        onClick={togglePlayPause}
-        className={style.playPause}
-      >
-        {isPlaying ? (
-          <FaPause />
-        ) : (
-          <FaPlay className={style.play} />
-        )}
-      </button>
-      <button onClick={backThirty}>
-        <FaForward className={style.forward} /> 10
-      </button>
-      <button
-        className={style.Backward}
-        onClick={forwardThirty}
-      >
-        10 <FaForward />
-      </button>
-      <div className={style.currentTime}>
-        {calculateTime(currentTime)}
-      </div>
-      <div>
-        <input
-          type="range"
-          className={style.progressBar}
-          defaultValue="0"
-          ref={progressBar}
-          onChange={changeRange}
-        />
-      </div>
-      <div className={style.duration}>
-        {calculateTime(duration)}
-      </div>
+      {music !== '' ? (
+        <>
+          <div className={style.audio__image}>
+            <div className={style.playing}>
+              {isPlaying && (
+                <>
+                  {Array.from(
+                    { length: 12 },
+                    (_, index) => (
+                      <div
+                        key={index}
+                        className={`${style.greenline} ${
+                          style[
+                            `line${
+                              Math.floor(
+                                Math.random() * 5
+                              ) + 1
+                            }`
+                          ]
+                        }`}
+                      />
+                    )
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+          <div className={style.audio__wrapper}>
+            <audio
+              ref={audioPlayer}
+              preload="metadata"
+            ></audio>
+            <div className={style.audioPlayer__buttons}>
+              <button
+                onClick={backThirty}
+                className={style.forward__button}
+              >
+                <FaForward className={style.forward} /> 10
+              </button>
+              <button
+                onClick={togglePlayPause}
+                className={style.playPause}
+              >
+                {isPlaying ? (
+                  <FaPause />
+                ) : (
+                  <FaPlay className={style.play} />
+                )}
+              </button>
+              <button
+                className={style.Backward}
+                onClick={forwardThirty}
+              >
+                10 <FaForward />
+              </button>
+            </div>
+            <div className={style.progressBar__wrapper}>
+              <div className={style.currentTime}>
+                {calculateTime(currentTime)}
+              </div>
+              <div>
+                <input
+                  type="range"
+                  className={style.progressBar}
+                  defaultValue="0"
+                  ref={progressBar}
+                  onChange={changeRange}
+                />
+              </div>
+              <div className={style.duration}>
+                {calculateTime(duration)}
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <p>音楽を生成してください！</p>
+      )}
     </div>
   );
 };
