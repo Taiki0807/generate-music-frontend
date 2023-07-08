@@ -6,7 +6,7 @@ import style from './TopPage.module.css';
 import { useTopPage } from './useTopPage';
 
 export const TopPage = (): JSX.Element => {
-  const { handleChange, handleSubmit, loading } =
+  const { handleChange, handleSubmit, loading, music } =
     useTopPage();
   return (
     <div className={style.toppage}>
@@ -29,11 +29,7 @@ export const TopPage = (): JSX.Element => {
         >
           generate
         </Button>
-        <AudioPlayer
-          music={
-            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-          }
-        />
+        <AudioPlayer music={music} />
       </div>
     </div>
   );
