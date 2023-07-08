@@ -1,5 +1,5 @@
 .progressBar {
-  --bar-bg: #fcfcfc;
+  --bar-bg: #ddd;
   --seek-before-width: 0;
   --seek-before-color: #3652f0;
   --knobby: #3452a5;
@@ -41,6 +41,119 @@
 .progressBar:active::-webkit-slider-thumb {
   transform: scale(1.2);
 }
+.forward__button {
+  border-radius: 100%;
+  border: none;
+}
 .forward {
   transform: scaleX(-1);
+}
+.Backward {
+  border-radius: 100%;
+  border: none;
+}
+.audio__wrapper {
+  flex: 0.7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.audioPlayer {
+  background: #fff;
+  border: 1px solid #fff3eb;
+  padding: 2rem;
+  box-shadow: 0 30px 50px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.audioPlayer__buttons {
+  display: flex;
+  gap: 1rem;
+}
+.playPause {
+  border-radius: 100%;
+  padding: 1rem;
+  border: none;
+  background-color: black;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progressBar__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.audio__image {
+  height: 100px;
+  width: 100px;
+  background-color: #ddd;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0.3;
+}
+.playing {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.15rem;
+}
+.greenline {
+  background-color: #1db954;
+  height: 100px;
+  width: 2px;
+  position: relative;
+  transform-origin: bottom;
+}
+
+.line1 {
+  animation: infinite playing 1s ease-in-out;
+  animation-delay: 0.2s;
+}
+
+.line2 {
+  animation: infinite playing 1s ease-in-out;
+  animation-delay: 0.5s;
+}
+
+.line3 {
+  animation: infinite playing 1s ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.line4 {
+  animation: infinite playing 1s ease-in-out;
+  animation-delay: 0s;
+}
+
+.line5 {
+  animation: infinite playing 1s ease-in-out;
+  animation-delay: 0.4s;
+}
+
+@keyframes playing {
+  0% {
+    transform: scaleY(0.1);
+  }
+
+  33% {
+    transform: scaleY(0.6);
+  }
+
+  66% {
+    transform: scaleY(0.9);
+  }
+
+  100% {
+    transform: scaleY(0.1);
+  }
 }
